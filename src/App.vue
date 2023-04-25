@@ -1,6 +1,8 @@
 <template>
   <section class="container">
-    <h2>{{ userName }}</h2>
+    <h2>{{ user.name }}</h2>
+    <h3>{{ user.age }}</h3>
+    <button @click="getUserAge">Count</button>
   </section>
 </template>
 
@@ -26,13 +28,26 @@ export default {
 </script> -->
 
 <script setup>
-import { ref } from "vue";
+import { reactive, toRefs } from "vue";
+// import { ref } from "vue";
 
-const userName = ref("Maximilan");
-console.log(userName);
-setTimeout(() => {
-  userName.value = "Test";
-}, 2000);
+// const user = ref({
+//   name: "Trung",
+//   age: 30,
+// });
+const user = reactive({
+  name: "Trung",
+  age: 30,
+});
+const userRef = toRefs(user);
+//Change reactive to ref
+console.log(userRef.name.value);
+function getUserAge() {
+  //Ref case
+  // user.value.age++;
+
+  user.age++;
+}
 </script>
 <style>
 * {
