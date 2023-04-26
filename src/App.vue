@@ -1,73 +1,100 @@
 <template>
-  <section class="container">
-    <h2>{{ user.name }}</h2>
-    <h3>{{ user.age }}</h3>
-    <button @click="getUserAge">Count</button>
-  </section>
+  <div>
+    <header>
+      <h1>Expense Tracker</h1>
+    </header>
+    <section>
+      <div>Available Funds: {{ availableFunds }}</div>
+      <div>Total Expenses: {{ currentExpenses }}</div>
+      <hr />
+      <div>Funds left: {{ remainingFunds }}</div>
+    </section>
+    <section>
+      <form @submit.prevent="addExpense">
+        <div>
+          <label for="amount">Amount</label>
+          <input id="amount" type="number" v-model="enteredExpense" />
+        </div>
+        <button>Add Expense</button>
+      </form>
+    </section>
+  </div>
 </template>
 
-<!-- <script>
-import { ref } from "vue";
-export default {
-  // data() {
-  //   return {
-  //     userName: 'Maximilian',
-  //   };
-  // },
-  setup() {
-    const userName = ref("Maximilan");
-    console.log(userName);
-    setTimeout(() => {
-      userName.value = "Test";
-    }, 2000);
-    return {
-      userName,
-    };
-  },
-};
-</script> -->
-
 <script setup>
-import { reactive, toRefs } from "vue";
-// import { ref } from "vue";
+import { ref, computed, watch } from "vue";
 
-// const user = ref({
-//   name: "Trung",
-//   age: 30,
-// });
-const user = reactive({
-  name: "Trung",
-  age: 30,
+const availableFunds = 100;
+
+const currentExpenses = ref(0);
+const enteredExpense = ref(0);
+
+const remainingFunds = computed(function () {
+  return availableFunds - currentExpenses.value;
 });
-const userRef = toRefs(user);
-//Change reactive to ref
-console.log(userRef.name.value);
-function getUserAge() {
-  //Ref case
-  // user.value.age++;
 
-  user.age++;
+watch(remainingFunds, function (newValue) {
+  if (newValue < 0) {
+    alert("You are broke!");
+  }
+});
+
+function addExpense() {
+  currentExpenses.value = currentExpenses.value + enteredExpense.value;
 }
+
+
 </script>
+
 <style>
 * {
   box-sizing: border-box;
 }
-
 html {
   font-family: sans-serif;
 }
-
 body {
   margin: 0;
 }
-
-.container {
-  margin: 3rem auto;
-  max-width: 30rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+header {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #30006e;
+  color: white;
+}
+section {
+  margin: 2rem auto;
+  max-width: 35rem;
   padding: 1rem;
-  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 12px;
+}
+
+form div {
+  margin: 1rem 0;
+}
+input {
+  width: 100%;
+  padding: 0.15rem;
+}
+label {
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+button {
+  background-color: #30006e;
+  border: 1px solid #30006e;
+  font: inherit;
+  cursor: pointer;
+  padding: 0.5rem 1.5rem;
+  color: white;
+}
+button:hover,
+button:active {
+  background-color: #5819ac;
+  border-color: #5819ac;
 }
 </style>
