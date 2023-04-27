@@ -6,6 +6,7 @@ import BaseContainer from "./components/UI/BaseContainer.vue";
 import CounterPage from "./components/counter/CounterPage.vue";
 import HomePage from "./components/homepage/HomePage.vue";
 import App from "./App.vue";
+import logger from "./components/mixins/logger";
 const router = createRouter({
   history: createWebHistory(),
   routes: [
@@ -38,6 +39,7 @@ const store = createStore({
 const app = createApp(App);
 app.use(router);
 app.use(store);
+app.mixin(logger);
 
 app.component("base-search", BaseSearch);
 app.component("base-container", BaseContainer);

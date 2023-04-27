@@ -2,6 +2,7 @@
   <div>
     <h1>{{ counter }}</h1>
     <button @click="inc">Increment</button>
+    <button @click="show('TEst')">Show Alert</button>
   </div>
 </template>
 <script>

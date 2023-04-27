@@ -61,13 +61,13 @@ const useSearched = (props) => {
       }
     });
   });
-  return {
+  return [
     enteredSearchTerm,
     activeSearchTerm,
     sorting,
     availableUsers,
     displayedUsers,
-  };
+  ];
 };
 
 export default {
@@ -77,13 +77,13 @@ export default {
   props: ["users"],
   emits: ["list-projects"],
   setup(props) {
-    const {
+    const [
       enteredSearchTerm,
       activeSearchTerm,
       sorting,
       availableUsers,
       displayedUsers,
-    } = useSearched(props);
+    ] = useSearched(props);
 
     watch(enteredSearchTerm, function (newValue) {
       setTimeout(() => {
