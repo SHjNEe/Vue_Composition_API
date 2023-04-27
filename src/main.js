@@ -18,6 +18,10 @@ const store = createStore({
   state() {
     return {
       counter: 0,
+      user: {
+        name: "Trung",
+        age: 30,
+      },
     };
   },
   mutations: {
@@ -33,6 +37,9 @@ const store = createStore({
   getters: {
     counter(state) {
       return state.counter;
+    },
+    user(state) {
+      return state.user;
     },
   },
 });
